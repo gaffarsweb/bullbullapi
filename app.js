@@ -128,18 +128,33 @@ class BullBullPoker {
       const total = this.getCardPoints(player.cards).reduce((acc, val) => acc + val, 0);
       let result = "No Bull"; 
 
-      if (this.checkSmallBull(player.cards)) {
-        result = "5-small-bull";
-      } else if (this.checkBomb(player.cards)) {
-        result = "Bomb";
-      } else if (this.checkFiveFaceBull(player.cards)) {
-        result = "5-face-bull";
-      } else if (this.checkFourFaceBull(player.cards)) {
-        result = "4-face-bull";
+      // if (this.checkSmallBull(player.cards)) {
+      //   result = "5-small-bull";
+      // } else if (this.checkBomb(player.cards)) {
+      //   result = "Bomb";
+      // } else if (this.checkFiveFaceBull(player.cards)) {
+      //   result = "5-face-bull";
+      // } else if (this.checkFourFaceBull(player.cards)) {
+      //   result = "4-face-bull";
+      // } else if (this.checkBullBull(player.cards)) {
+      //   result = "Bull-Bull";
+      // } else if (this.checkNoBull(player.cards)) {
+      //   result = "No Bull";
+      // } else {
+      //   result = `Bull ${total % 10}`;
+      // }
+      if (this.checkNoBull(player.cards)) {
+        result = "No Bull";
       } else if (this.checkBullBull(player.cards)) {
         result = "Bull-Bull";
-      } else if (this.checkNoBull(player.cards)) {
-        result = "No Bull";
+      } else if (this.checkFourFaceBull(player.cards)) {
+        result = "4-face-bull";
+      } else if (this.checkFiveFaceBull(player.cards)) {
+        result = "5-face-bull";
+      } else if (this.checkBomb(player.cards)) {
+        result = "Bomb";
+      } else if (this.checkSmallBull(player.cards)) {
+        result = "5-small-bull";
       } else {
         result = `Bull ${total % 10}`;
       }
@@ -154,18 +169,33 @@ class BullBullPoker {
     const dealerTotal = this.getCardPoints(this.dealer.cards).reduce((acc, val) => acc + val, 0);
     let dealerResult = "No Bull"; 
 
-    if (this.checkSmallBull(this.dealer.cards)) {
-      dealerResult = "5-small-bull";
-    } else if (this.checkBomb(this.dealer.cards)) {
-      dealerResult = "Bomb";
-    } else if (this.checkFiveFaceBull(this.dealer.cards)) {
-      dealerResult = "5-face-bull";
-    } else if (this.checkFourFaceBull(this.dealer.cards)) {
-      dealerResult = "4-face-bull";
+    // if (this.checkSmallBull(this.dealer.cards)) {
+    //   dealerResult = "5-small-bull";
+    // } else if (this.checkBomb(this.dealer.cards)) {
+    //   dealerResult = "Bomb";
+    // } else if (this.checkFiveFaceBull(this.dealer.cards)) {
+    //   dealerResult = "5-face-bull";
+    // } else if (this.checkFourFaceBull(this.dealer.cards)) {
+    //   dealerResult = "4-face-bull";
+    // } else if (this.checkBullBull(this.dealer.cards)) {
+    //   dealerResult = "Bull-Bull";
+    // } else if (this.checkNoBull(this.dealer.cards)) {
+    //   dealerResult = "No Bull";
+    // } else {
+    //   dealerResult = `Bull ${dealerTotal % 10}`;
+    // }
+    if (this.checkNoBull(this.dealer.cards)) {
+      dealerResult = "No Bull";
     } else if (this.checkBullBull(this.dealer.cards)) {
       dealerResult = "Bull-Bull";
-    } else if (this.checkNoBull(this.dealer.cards)) {
-      dealerResult = "No Bull";
+    } else if (this.checkFourFaceBull(this.dealer.cards)) {
+      dealerResult = "4-face-bull";
+    } else if (this.checkFiveFaceBull(this.dealer.cards)) {
+      dealerResult = "5-face-bull";
+    } else if (this.checkBomb(this.dealer.cards)) {
+      dealerResult = "Bomb";
+    } else if (this.checkSmallBull(this.dealer.cards)) {
+      dealerResult = "5-small-bull";
     } else {
       dealerResult = `Bull ${dealerTotal % 10}`;
     }
