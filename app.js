@@ -76,8 +76,11 @@ class BullBullPoker {
   checkFourFaceBull(cards) {
     const faceCards = ['J', 'Q', 'K'];
     const values = cards.map(card => card.value);
+
     const faceCount = values.filter(value => faceCards.includes(value)).length;
     const hasTen = values.includes('10');
+    console.log('hasTen',hasTen)
+    console.log('faceCount',faceCount)
     return faceCount === 4 && hasTen;
   }
 
@@ -145,8 +148,6 @@ class BullBullPoker {
       // }
       if (this.checkNoBull(player.cards)) {
         result = "No Bull";
-      } else if (this.checkBullBull(player.cards)) {
-        result = "Bull-Bull";
       } else if (this.checkFourFaceBull(player.cards)) {
         result = "4-face-bull";
       } else if (this.checkFiveFaceBull(player.cards)) {
@@ -155,6 +156,8 @@ class BullBullPoker {
         result = "Bomb";
       } else if (this.checkSmallBull(player.cards)) {
         result = "5-small-bull";
+      } else if (this.checkBullBull(player.cards)) {
+        result = "Bull-Bull";
       } else {
         result = `Bull ${total % 10}`;
       }
@@ -186,9 +189,7 @@ class BullBullPoker {
     // }
     if (this.checkNoBull(this.dealer.cards)) {
       dealerResult = "No Bull";
-    } else if (this.checkBullBull(this.dealer.cards)) {
-      dealerResult = "Bull-Bull";
-    } else if (this.checkFourFaceBull(this.dealer.cards)) {
+    }else if (this.checkFourFaceBull(this.dealer.cards)) {
       dealerResult = "4-face-bull";
     } else if (this.checkFiveFaceBull(this.dealer.cards)) {
       dealerResult = "5-face-bull";
@@ -196,7 +197,9 @@ class BullBullPoker {
       dealerResult = "Bomb";
     } else if (this.checkSmallBull(this.dealer.cards)) {
       dealerResult = "5-small-bull";
-    } else {
+    } else if (this.checkBullBull(this.dealer.cards)) {
+      dealerResult = "Bull-Bull";
+    }  else {
       dealerResult = `Bull ${dealerTotal % 10}`;
     }
 
@@ -230,8 +233,6 @@ class BullBullPoker {
 
     if (this.checkNoBull(cards)) {
       result = "No Bull";
-    } else if (this.checkBullBull(cards)) {
-      result = "Bull-Bull";
     } else if (this.checkFourFaceBull(cards)) {
       result = "4-face-bull";
     } else if (this.checkFiveFaceBull(cards)) {
@@ -240,6 +241,8 @@ class BullBullPoker {
       result = "Bomb";
     } else if (this.checkSmallBull(cards)) {
       result = "5-small-bull";
+    } else if (this.checkBullBull(cards)) {
+      result = "Bull-Bull";
     } else {
       result = `Bull ${total % 10}`;
     }
