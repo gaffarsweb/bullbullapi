@@ -223,6 +223,36 @@ class BullBullPoker {
     this.calculateResults();
     res.json({ results: this.results });
   }
+
+  evaluateCards(cards) {
+    const total = this.getCardPoints(cards).reduce((acc, val) => acc + val, 0);
+    let result = "No Bull";
+
+    if (this.checkNoBull(cards)) {
+      result = "No Bull";
+    } else if (this.checkBullBull(cards)) {
+      result = "Bull-Bull";
+    } else if (this.checkFourFaceBull(cards)) {
+      result = "4-face-bull";
+    } else if (this.checkFiveFaceBull(cards)) {
+      result = "5-face-bull";
+    } else if (this.checkBomb(cards)) {
+      result = "Bomb";
+    } else if (this.checkSmallBull(cards)) {
+      result = "5-small-bull";
+    } else {
+      result = `Bull ${total % 10}`;
+    }
+
+    return result;
+  }
+
+  // API route to evaluate cards sent from frontend
+  evaluate(req, res) {
+    const { cards } = req.body;
+    const result = this.evaluateCards(cards);
+    res.json({ result });
+  }
 }
 
 // Initialize the Express app and BullBullPoker instance
@@ -237,6 +267,7 @@ app.use(express.json());
 app.post('/shuffle', (req, res) => pokerGame.shuffle(req, res));
 app.get('/game', (req, res) => pokerGame.game(req, res));
 app.post('/finish', (req, res) => pokerGame.finish(req, res));
+app.post('/evaluate', (req, res) => pokerGame.evaluate(req, res));  // New route
 
 // Start the server
 app.listen(port, () => {
