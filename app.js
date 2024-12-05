@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const LuckySixGame = require('./luckySix');
 
 class BullBullPoker {
   constructor() {
@@ -79,8 +80,8 @@ class BullBullPoker {
 
     const faceCount = values.filter(value => faceCards.includes(value)).length;
     const hasTen = values.includes('10');
-    console.log('hasTen',hasTen)
-    console.log('faceCount',faceCount)
+    console.log('hasTen', hasTen)
+    console.log('faceCount', faceCount)
     return faceCount === 4 && hasTen;
   }
 
@@ -129,7 +130,7 @@ class BullBullPoker {
     this.results = [];
     this.players.forEach(player => {
       const total = this.getCardPoints(player.cards).reduce((acc, val) => acc + val, 0);
-      let result = "No Bull"; 
+      let result = "No Bull";
 
       // if (this.checkSmallBull(player.cards)) {
       //   result = "5-small-bull";
@@ -170,7 +171,7 @@ class BullBullPoker {
     });
 
     const dealerTotal = this.getCardPoints(this.dealer.cards).reduce((acc, val) => acc + val, 0);
-    let dealerResult = "No Bull"; 
+    let dealerResult = "No Bull";
 
     // if (this.checkSmallBull(this.dealer.cards)) {
     //   dealerResult = "5-small-bull";
@@ -189,7 +190,7 @@ class BullBullPoker {
     // }
     if (this.checkNoBull(this.dealer.cards)) {
       dealerResult = "No Bull";
-    }else if (this.checkFourFaceBull(this.dealer.cards)) {
+    } else if (this.checkFourFaceBull(this.dealer.cards)) {
       dealerResult = "4-face-bull";
     } else if (this.checkFiveFaceBull(this.dealer.cards)) {
       dealerResult = "5-face-bull";
@@ -199,7 +200,7 @@ class BullBullPoker {
       dealerResult = "5-small-bull";
     } else if (this.checkBullBull(this.dealer.cards)) {
       dealerResult = "Bull-Bull";
-    }  else {
+    } else {
       dealerResult = `Bull ${dealerTotal % 10}`;
     }
 
@@ -258,15 +259,22 @@ class BullBullPoker {
   }
 }
 
+
 // Initialize the Express app and BullBullPoker instance
 const app = express();
 const pokerGame = new BullBullPoker();
+const luckySixGame = new LuckySixGame();
 const port = 3001;
 
 app.use(cors());
 app.use(express.json());
 
 // API Routes
+app.post('/lucky-shuffle', (req, res) => luckySixGame.shuffle(req, res));
+app.post('/lucky-finish', (req, res) => luckySixGame.finish(req, res));
+
+
+
 app.post('/shuffle', (req, res) => pokerGame.shuffle(req, res));
 app.get('/game', (req, res) => pokerGame.game(req, res));
 app.post('/finish', (req, res) => pokerGame.finish(req, res));
