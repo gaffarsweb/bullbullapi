@@ -149,17 +149,23 @@ class LuckySixGame {
 
     if (theBack) {
       if (this.checkRoyalStraightFlush(theBack)) {
-        player.back = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
+        player.back = 'Royal Straight Flush';
+        player.backMsg = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
       } else if (this.checkStraightFlush(theBack)) {
-        player.back = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
+        player.back = 'Straight Flush';
+        player.backMsg = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
       } else if (this.checkTrips(theBack)) {
-        player.back = 'Trips (Because you have same cards name like K,K,K)';
+        player.back = 'Trips';
+        player.backMsg = 'Trips (Because you have same cards name like K,K,K)';
       } else if (this.checkFlush(theBack)) {
-        player.back = 'Flush ( Because you have same symbol of cards)';
+        player.back = 'Flush';
+        player.backMsg = 'Flush ( Because you have same symbol of cards)';
       } else if (this.checkStraight(theBack)) {
-        player.back = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
+        player.back = 'Straight';
+        player.backMsg = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
       } else {
-        player.back = 'High Card (because you have Highest Card in back position)';
+        player.back = 'High Card';
+        player.backMsg = 'High Card (because you have Highest Card in back position)';
       }
     }
     if (theMiddle) {
@@ -173,15 +179,17 @@ class LuckySixGame {
       //   player.middle = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
       // } else if (this.checkPair(theMiddle)) {
       if (this.checkPair(theMiddle)) {
-        player.middle = 'Pair (because you have 2 cards  name same)';
+        player.middle = 'Pair';
+        player.middleMsg = 'Pair (because you have 2 cards  name same)';
       } else {
-        player.middle = 'High Card (because you have Highest Card in middle position)';
+        player.middle = 'High Card';
+        player.middleMsg = 'High Card (because you have Highest Card in middle position)';
       }
     }
 
     if (theFront) {
       player.front = 'High Card';
-      player.front = 'High Card (because you have Highest Card in front position)';
+      player.frontMsg = 'High Card (because you have Highest Card in front position)';
     }
 
     return player
@@ -189,7 +197,6 @@ class LuckySixGame {
   }
   checkCrack(player) {
 
-    console.log(player?.position);
 
     const valuesOfCards = player?.position.map(card => this.ranking[card?.value])
     const theBack = [valuesOfCards[0], valuesOfCards[1], valuesOfCards[2]];
@@ -212,6 +219,8 @@ class LuckySixGame {
           counterM = theMiddle[i];
         }
       }
+      console.log('asdfasdf', counterF > counterM)
+
       if (counterM > counterB) {
         player.crack = true;
         player.msg = `Middle ${player?.middle} is greater than back `
@@ -249,7 +258,6 @@ class LuckySixGame {
           counterM = theMiddle[i];
         }
       }
-      console.log('asdfasdf', counterF > counterM)
       if (counterF > counterM) {
         player.crack = true;
         player.msg = `front ${player?.front} is greater than middle `
@@ -273,8 +281,6 @@ class LuckySixGame {
   }
   // Calculate results for each player
   calculateResults(players) {
-    console.log('players', players)
-    console.log('playerssss', players[0])
 
     for (let i = 0; i < players.length; i++) {
       const updatedPlayer = players[i]?.position ? this.checkCartTypeRanking(players[i]) : players[i]
@@ -288,7 +294,6 @@ class LuckySixGame {
 
     }
 
-    console.log('players')
 
     this.players = players
   }
@@ -306,7 +311,6 @@ class LuckySixGame {
   }
 
   finish(req, res) {
-    console.log('req', req?.body?.players)
     this.calculateResults(req?.body?.players);
     res.json({ results: this.results, players: this.players });
   }
