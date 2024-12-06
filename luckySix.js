@@ -149,41 +149,40 @@ class LuckySixGame {
 
     if (theBack) {
       if (this.checkRoyalStraightFlush(theBack)) {
-        player.back = 'Royal Straight Flush';
+        player.back = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
       } else if (this.checkStraightFlush(theBack)) {
-        player.back = 'Straight Flush';
+        player.back = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
       } else if (this.checkTrips(theBack)) {
-        player.back = 'Trips';
+        player.back = 'Trips (Because you have same cards name like K,K,K)';
       } else if (this.checkFlush(theBack)) {
-        player.back = 'Flush';
+        player.back = 'Flush ( Because you have same symbol of cards)';
       } else if (this.checkStraight(theBack)) {
-        player.back = 'Straight';
+        player.back = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
       } else if (this.checkPair(theBack)) {
-        player.back = 'Pair';
+        player.back = 'Pair (because you have 2 cards  name same)';
       } else {
-        player.back = 'High Card';
+        player.back = 'High Card (because you have Highest Card in back position)';
       }
     }
     if (theMiddle) {
       if (this.checkRoyalStraightFlush(theMiddle)) {
-        player.middle = 'Royal Straight Flush';
+        player.middle = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
       } else if (this.checkStraightFlush(theMiddle)) {
-        player.middle = 'Straight Flush';
-      } else if (this.checkTrips(theMiddle)) {
-        player.middle = 'Trips';
+        player.middle = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
       } else if (this.checkFlush(theMiddle)) {
-        player.middle = 'Flush';
+        player.middle = 'Flush ( Because you have same symbol of cards)';
       } else if (this.checkStraight(theMiddle)) {
-        player.middle = 'Straight';
+        player.middle = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
       } else if (this.checkPair(theMiddle)) {
-        player.middle = 'Pair';
+        player.middle = 'Pair (because you have 2 cards  name same)';
       } else {
-        player.middle = 'High Card';
+        player.middle = 'High Card (because you have Highest Card in middle position)';
       }
     }
 
     if (theFront) {
       player.front = 'High Card';
+      player.front = 'High Card (because you have Highest Card in front position)';
     }
 
     return player
@@ -197,28 +196,79 @@ class LuckySixGame {
     const theBack = [valuesOfCards[0], valuesOfCards[1], valuesOfCards[2]];
     const theMiddle = [valuesOfCards[3], valuesOfCards[4]];
     const theFront = [valuesOfCards[5]]
+    let counterB;
+    let counterM;
+    let counterF = theFront[0];
 
-    for (let i = 0; i < theFront.length; i++) {
-      for (let j = 0; j < theMiddle.length; j++) {
-        if (theFront[i] < theMiddle[j]) {
-          console.log('player.crack = true first')
-          return true
+    if (player?.back === player?.middle && player?.back === player?.front) {
+      for (let i = 0; i < theBack.length; i++) {
+        counterB = theBack[0];
+        if (counterB <= theBack[i]) {
+          counterB = theBack[i];
         }
-        for (let k = 0; k < theBack.length; k++) {
-          if (theFront[i] < theBack[k]) {
-            console.log('player.crack = true secon')
-            return true
-          } else if (theMiddle[j] < theBack[k]) {
-            console.log('player.crack = true Third')
-            player.crack = true
-            return true
-          }
-
+      }
+      for (let i = 0; i < theMiddle.length; i++) {
+        counterM = theMiddle[0];
+        if (counterM <= theMiddle[i]) {
+          counterM = theMiddle[i];
         }
+      }
+      if (counterM > counterB) {
+        player.crack = true;
+        player.msg = `Middle ${player?.middle} is greater than back `
+      }
+      if (counterF > counterM) {
+        player.crack = true;
+        player.msg = `Front ${player?.front} is greater than Middle `
+      }
+      if (counterF > counterB) {
+        player.crack = true;
+        player.msg = `Front ${player?.front} is greater than back `
 
       }
+    } else if (player?.back === player?.middle) {
+      for (let i = 0; i < theBack.length; i++) {
+        counterB = theBack[0];
+        if (counterB <= theBack[i]) {
+          counterB = theBack[i];
+        }
+      }
+      for (let i = 0; i < theMiddle.length; i++) {
+        counterM = theMiddle[0];
+        if (counterM <= theMiddle[i]) {
+          counterM = theMiddle[i];
+        }
+      }
+      if (counterM > counterB) {
+        player.crack = true;
+        player.msg = `Middle ${player?.middle} is greater than back `
+      }
+    } else if (player?.front === player?.middle) {
+      for (let i = 0; i < theMiddle.length; i++) {
+        counterM = theMiddle[0];
+        if (counterM <= theMiddle[i]) {
+          counterM = theMiddle[i];
+        }
+      }
+      if (counterF > counterM) {
+        player.crack = true;
+        player.msg = `front ${player?.front} is greater than middle `
+
+      }
+    } else if (player?.back === player?.front) {
+      for (let i = 0; i < theBack.length; i++) {
+        counterB = theBack[0];
+        if (counterB <= theBack[i]) {
+          counterB = theBack[i];
+        }
+      }
+      if (counterF > counterB) {
+        player.crack = true
+        player.msg = `front ${player?.front} is greater than back `
+      }
     }
-    return false
+
+    return player
 
   }
   // Calculate results for each player
@@ -227,13 +277,15 @@ class LuckySixGame {
     console.log('playerssss', players[0])
 
     for (let i = 0; i < players.length; i++) {
-      const storedCrack = this.checkCrack(players[i]);
-      if (storedCrack === true) {
-        players[i].crack = true
-      } else {
-        const updatedPlayer = this.checkCartTypeRanking(players[i])
-        players[i] = updatedPlayer;
+      const updatedPlayer = players[i]?.position ? this.checkCartTypeRanking(players[i]) : players[i]
+      players[i] = updatedPlayer;
+
+
+      const storedCrack = players[i]?.position ? this.checkCrack(players[i]) : players[i];
+      if (storedCrack) {
+        players[i] = storedCrack
       }
+
     }
 
     console.log('players')
