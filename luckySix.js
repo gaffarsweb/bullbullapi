@@ -158,22 +158,21 @@ class LuckySixGame {
         player.back = 'Flush ( Because you have same symbol of cards)';
       } else if (this.checkStraight(theBack)) {
         player.back = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
-      } else if (this.checkPair(theBack)) {
-        player.back = 'Pair (because you have 2 cards  name same)';
       } else {
         player.back = 'High Card (because you have Highest Card in back position)';
       }
     }
     if (theMiddle) {
-      if (this.checkRoyalStraightFlush(theMiddle)) {
-        player.middle = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
-      } else if (this.checkStraightFlush(theMiddle)) {
-        player.middle = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
-      } else if (this.checkFlush(theMiddle)) {
-        player.middle = 'Flush ( Because you have same symbol of cards)';
-      } else if (this.checkStraight(theMiddle)) {
-        player.middle = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
-      } else if (this.checkPair(theMiddle)) {
+      // if (this.checkRoyalStraightFlush(theMiddle)) {
+      //   player.middle = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
+      // } else if (this.checkStraightFlush(theMiddle)) {
+      //   player.middle = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
+      // } else if (this.checkFlush(theMiddle)) {
+      //   player.middle = 'Flush ( Because you have same symbol of cards)';
+      // } else if (this.checkStraight(theMiddle)) {
+      //   player.middle = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
+      // } else if (this.checkPair(theMiddle)) {
+      if (this.checkPair(theMiddle)) {
         player.middle = 'Pair (because you have 2 cards  name same)';
       } else {
         player.middle = 'High Card (because you have Highest Card in middle position)';
@@ -250,6 +249,7 @@ class LuckySixGame {
           counterM = theMiddle[i];
         }
       }
+      console.log('asdfasdf', counterF > counterM)
       if (counterF > counterM) {
         player.crack = true;
         player.msg = `front ${player?.front} is greater than middle `
