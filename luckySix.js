@@ -165,7 +165,7 @@ class LuckySixGame {
         player.backMsg = 'Straight (because you have serial card position like A,K,Q,J,10 etc)'; //3 cards
       } else if (this.checkPair(theBack)) {
         player.back = 'Pair';
-        player.middleMsg = 'Pair (because you have 2 cards  name same)';
+        player.backMsg = 'Pair (because you have 2 cards  name same)';
       } else {
         player.back = 'High Card';
         player.backMsg = 'High Card (because you have Highest Card in back position)';
