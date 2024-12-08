@@ -150,19 +150,22 @@ class LuckySixGame {
     if (theBack) {
       if (this.checkRoyalStraightFlush(theBack)) {
         player.back = 'Royal Straight Flush';
-        player.backMsg = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )';
+        player.backMsg = 'Royal Straight Flush (Because You have royal cards like J,K,Q,A and this straight like A,K,Q and flush for Same symbol )'; //3
       } else if (this.checkStraightFlush(theBack)) {
         player.back = 'Straight Flush';
-        player.backMsg = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )';
+        player.backMsg = 'Straight Flush (Because you have straight cards like serial A,K,Q,J,10 etc and flush for same symbol of Card )'; //3
       } else if (this.checkTrips(theBack)) {
         player.back = 'Trips';
-        player.backMsg = 'Trips (Because you have same cards name like K,K,K)';
+        player.backMsg = 'Trips (Because you have same cards name like K,K,K)'; // 3
       } else if (this.checkFlush(theBack)) {
         player.back = 'Flush';
-        player.backMsg = 'Flush ( Because you have same symbol of cards)';
+        player.backMsg = 'Flush ( Because you have same symbol of cards)'; //3 cards
       } else if (this.checkStraight(theBack)) {
         player.back = 'Straight';
-        player.backMsg = 'Straight (because you have serial card position like A,K,Q,J,10 etc)';
+        player.backMsg = 'Straight (because you have serial card position like A,K,Q,J,10 etc)'; //3 cards
+      } else if (this.checkPair(theBack)) {
+        player.back = 'Pair';
+        player.middleMsg = 'Pair (because you have 2 cards  name same)';
       } else {
         player.back = 'High Card';
         player.backMsg = 'High Card (because you have Highest Card in back position)';
